@@ -41,7 +41,7 @@ module.exports = function(app) {
     app.get('/wx/auth', function(req, res) {
         var app_id = credentials.wx.appId;
         var url = 'http://base_wx.ompchina.net/sns/UserInfo?appId='+app_id+'&openid='+req.query.wechat_openid;
-        request.get(url,function (error,respons,body) {
+        request.get(url,function (error,response,body) {
             if (!error && response.statusCode == 200) {
                 var data = body;
                 req.session.wxUser = {
