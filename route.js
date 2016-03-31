@@ -65,7 +65,7 @@ module.exports = function(app) {
                     country: body.country,
                 },function (error,doc) {
                     console.log(doc);
-                    if (error){
+                    if (!doc){
                         new WxUser({
                             openid: body.openid,
                             nickname: body.nickname,
@@ -95,7 +95,6 @@ var isAuthenticated = function (req, res, next) {
     res.redirect('/login');
 }
 var wxAuth = function (req, res, next) {
-    console.log(req.session.wxUser);
     if (req.session.wxUser){
         return next();
     }
