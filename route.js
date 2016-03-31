@@ -39,7 +39,8 @@ module.exports = function(app) {
      * 微信授权回调
      */
     app.get('/wx/auth', function(req, res) {
-        var url = 'http://base_wx.ompchina.net/sns/UserInfo?appId='+app_id+'&openid='+req.get('wechat_openid');
+        var app_id = credentials.wx.appId;
+        var url = 'http://base_wx.ompchina.net/sns/UserInfo?appId='+app_id+'&openid='+req.query.wechat_openid;
         request.get(url,function (error,respons,body) {
             if (!error && response.statusCode == 200) {
                 var data = body;
