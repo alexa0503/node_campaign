@@ -55,6 +55,7 @@ module.exports = function(app) {
                     province: body.province,
                     city: body.city,
                     country: body.country,
+                    created: Date.now()
                 };
                 WxUser.findOneAndUpdate({openid:body.openid},{
                     nickname: body.nickname,
@@ -63,20 +64,10 @@ module.exports = function(app) {
                     province: body.province,
                     city: body.city,
                     country: body.country,
-                },function (error,doc) {
-                    console.log(doc);
-                    if (!doc){
-                        new WxUser({
-                            openid: body.openid,
-                            nickname: body.nickname,
-                            headImg: body.headimgurl,
-                            gender: body.sex,
-                            province: body.province,
-                            city: body.city,
-                            country: body.country,
-                            created: Date.now()
-                        }).save();
-                    }
+                    created: Date.now()
+                },{upsert:true},function (error,doc) {
+                    console.log(error, doc);
+
                 });
                 res.redirect('/');
             }
