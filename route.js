@@ -40,13 +40,14 @@ module.exports = function(app) {
     app.get('/wx/auth', function(req, res) {
         var app_id = credentials.wx.appId;
         var url = 'http://base_wx.ompchina.net/sns/UserInfo?appId='+app_id+'&openid='+req.query.openid;
-        console.log(app_id,req.query);
+        //console.log(app_id,req.query);
         request.get({url:url,json:true},function (error,response,body) {
             if (!error && response.statusCode == 200) {
                 if (body.errcode){
                     req.write('something bad~'+body.message);
                     return;
                 }
+                console.log(body);
                 req.session.wxUser = {
                     openid:body.openid,
                     nickname:body.nickname,
