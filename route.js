@@ -65,8 +65,9 @@ module.exports = function(app) {
                     province: body.province,
                     city: body.city,
                     country: body.country,
-                },function (err,wxUser) {
-                    if( !wxUser.length){
+                },function (error,doc) {
+                    console.log(doc);
+                    if (error){
                         new WxUser({
                             openid: body.openid,
                             nickname: body.nickname,
@@ -78,7 +79,7 @@ module.exports = function(app) {
                             created: Date.now()
                         }).save();
                     }
-                })
+                });
                 res.redirect('/');
             }
             else{
