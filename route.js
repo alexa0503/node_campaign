@@ -47,8 +47,6 @@ module.exports = function(app) {
                     req.write('something bad~'+body.message);
                     return;
                 }
-                console.log(body);
-                req.session.wxUser = body.openid;
                 req.session.wxUser = {
                     openid:body.openid,
                     nickname:body.nickname,
@@ -97,6 +95,7 @@ var isAuthenticated = function (req, res, next) {
     res.redirect('/login');
 }
 var wxAuth = function (req, res, next) {
+    console.log(req.session.wxUser);
     if (req.session.wxUser){
         return next();
     }
