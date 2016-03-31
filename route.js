@@ -8,7 +8,6 @@ module.exports = function(app) {
      * 首页
      */
     app.get('/', wxAuth, function(req, res) {
-        console.log(req.url,req.host);
         res.render('index');
     });
 
@@ -44,6 +43,7 @@ module.exports = function(app) {
         request.get(url,function (error,response,body) {
             if (!error && response.statusCode == 200) {
                 var data = body;
+                console.log(body);
                 req.session.wxUser = {
                     openid:data.openid,
                     nickname:data.nickname,
