@@ -40,9 +40,13 @@ module.exports = function(app) {
     app.get('/wx/auth', function(req, res) {
         var app_id = credentials.wx.appId;
         var url = 'http://base_wx.ompchina.net/sns/UserInfo?appId='+app_id+'&openid='+req.query.wechat_openid;
-        request.get(url,function (error,response,body) {
+        request.get(url,function (error,response,body,done) {
             if (!error && response.statusCode == 200) {
                 var data = body;
+                if ( data.errcode){
+                    console.log('授权失败~',data.message);
+                    return done(null,false);
+                }
                 console.log(body);
                 req.session.wxUser = {
                     openid:data.openid,
