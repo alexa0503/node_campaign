@@ -41,36 +41,39 @@ module.exports = function(app) {
         var app_id = credentials.wx.appId;
         var url = 'http://base_wx.ompchina.net/sns/UserInfo?appId='+app_id+'&openid='+req.query.openid;
         console.log(app_id,req.query);
-        request.get(url,function (error,response,body) {
+        request.get({url:url,json:true},function (error,response,body) {
             if (!error && response.statusCode == 200) {
-                var data = body;
+                if (body.errcode){
+                    req.write('something bad~'+body.message);
+                    return;
+                }
                 req.session.wxUser = {
-                    openid:data.openid,
-                    nickname:data.nickname,
-                    headImg: data.headimgurl,
-                    gender: data.sex,
-                    province: data.province,
-                    city: data.city,
-                    country: data.country,
+                    openid:body.openid,
+                    nickname:body.nickname,
+                    headImg: body.headimgurl,
+                    gender: body.sex,
+                    province: body.province,
+                    city: body.city,
+                    country: body.country,
                 };
-                WxUser.findOneAndUpdate({openid:data.openid},{
-                    nickname: data.nickname,
-                    headImg: data.headimgurl,
-                    gender: data.sex,
-                    province: data.province,
-                    city: data.city,
-                    country: data.country,
+                WxUser.findOneAndUpdate({openid:body.openid},{
+                    nickname: body.nickname,
+                    headImg: body.headimgurl,
+                    gender: body.sex,
+                    province: body.province,
+                    city: body.city,
+                    country: body.country,
                 },function (err,wxUser) {
                     req.session.wxUser = wxUser.openid;
                     if( !wxUser.length){
                         new WxUser({
-                            openid: data.openid,
-                            nickname: data.nickname,
-                            headImg: data.headimgurl,
-                            gender: data.sex,
-                            province: data.province,
-                            city: data.city,
-                            country: data.country,
+                            openid: body.openid,
+                            nickname: body.nickname,
+                            headImg: body.headimgurl,
+                            gender: body.sex,
+                            province: body.province,
+                            city: body.city,
+                            country: body.country,
                             created: Date.now()
                         }).save();
                     }
