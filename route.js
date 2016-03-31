@@ -48,6 +48,7 @@ module.exports = function(app) {
                     return;
                 }
                 console.log(body);
+                req.session.wxUser = body.openid;
                 req.session.wxUser = {
                     openid:body.openid,
                     nickname:body.nickname,
@@ -65,7 +66,6 @@ module.exports = function(app) {
                     city: body.city,
                     country: body.country,
                 },function (err,wxUser) {
-                    req.session.wxUser = wxUser.openid;
                     if( !wxUser.length){
                         new WxUser({
                             openid: body.openid,
