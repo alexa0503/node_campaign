@@ -1,6 +1,8 @@
 var http = require('http'),
     express = require('express');
 var app = express();
+app.use(express.static(__dirname + '/public'));
+app.set('port', process.env.PORT || 4000);
 var credentials = require('./credentials.js');
 // set up handlebars view engine
 var paginateHelper = require('express-handlebars-paginate');
@@ -21,8 +23,6 @@ var hbs = handlebars.create({
 hbs.handlebars.registerHelper('paginateHelper', paginateHelper.createPagination);
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.use(express.static(__dirname + '/public'));
-app.set('port', process.env.PORT || 4000);
 
 app.use(require('connect-flash')());
 var MongoSessionStore = require('session-mongoose')(require('connect'));

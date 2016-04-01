@@ -7,7 +7,7 @@ module.exports = function(app) {
      * 首页
      */
     app.get('/', wxAuth, function(req, res) {
-        res.render('index');
+        res.render('index',{user:req.session.wxUser});
     });
 
     /**
