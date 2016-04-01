@@ -1,37 +1,13 @@
-var WxUser = require('./models/wxUser.js'),
+var WxUser = require('../models/wxUser.js'),
     request = require('request'),
     url = require('url'),
-    credentials = require('./credentials.js');
+    credentials = require('../credentials.js');
 module.exports = function(app) {
-
     /**
      * 首页
      */
     app.get('/', wxAuth, function(req, res) {
         res.render('index');
-    });
-
-    /**
-     * 后台首页
-     */
-    app.get('/cms', isAuthenticated,function (req,res) {
-        res.render('dashboard');
-    });
-    /**
-     * 后台登录
-     */
-    app.get('/login', function(req, res) {
-        res.render('admin/login',{layout:null});
-    });
-
-    /**
-     * 后台注销
-     */
-    app.get('/logout', function(req, res) {
-        if ( req.session.user)
-            delete req.session.user;
-        req.logout();
-        res.redirect('/login');
     });
 
     /**
@@ -55,7 +31,8 @@ module.exports = function(app) {
                     province: body.province,
                     city: body.city,
                     country: body.country,
-                    created: Date.now()
+                    created: Date.now(),
+                    createdIp:req.headers['x-forwarded-for'] || req.connection.remoteAddress
                 };
                 WxUser.findOneAndUpdate({openid:body.openid},{
                     nickname: body.nickname,
@@ -64,7 +41,8 @@ module.exports = function(app) {
                     province: body.province,
                     city: body.city,
                     country: body.country,
-                    created: Date.now()
+                    created: Date.now(),
+                    createdIp:req.headers['x-forwarded-for'] || req.connection.remoteAddress
                 },{upsert:true},function (error,doc) {
                     console.log(error, doc);
 
@@ -78,13 +56,6 @@ module.exports = function(app) {
         })
     });
 };
-
-var isAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/login');
-}
 var wxAuth = function (req, res, next) {
     if (req.session.wxUser){
         return next();

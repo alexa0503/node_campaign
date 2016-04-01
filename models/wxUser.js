@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-
-var userSchema = mongoose.Schema({
+var mongoosePaginate = require('mongoose-paginate');
+var schema = mongoose.Schema({
 	openid: String,
 	nickname: String,
 	headImg: String,
@@ -9,7 +9,17 @@ var userSchema = mongoose.Schema({
 	city: String,
 	country: String,
 	created: Date,
+    createdIp: String
 });
 
-var WxUser = mongoose.model('wx_user', userSchema);
+schema.methods.getGender = function(){
+    if (this.gender == 1)
+        return '男';
+    else if (this.gender == 0)
+        return '女';
+    else
+        return '';
+};
+schema.plugin(mongoosePaginate);
+var WxUser = mongoose.model('wx_user', schema);
 module.exports = WxUser;

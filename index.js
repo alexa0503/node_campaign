@@ -3,7 +3,9 @@ var http = require('http'),
 var app = express();
 var credentials = require('./credentials.js');
 // set up handlebars view engine
-var handlebars = require('express-handlebars').create({
+var paginateHelper = require('express-handlebars-paginate');
+var handlebars = require('express-handlebars');
+var hbs = handlebars.create({
     defaultLayout:'main',
     helpers: {
         static: function(name) {
@@ -15,15 +17,14 @@ var handlebars = require('express-handlebars').create({
             return null;
         }
     }
-});
-app.engine('handlebars', handlebars.engine);
+})
+hbs.handlebars.registerHelper('paginateHelper', paginateHelper.createPagination);
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 app.set('port', process.env.PORT || 4000);
 
-
 app.use(require('connect-flash')());
-//app.use(require('method-override')('X-HTTP-Method-Override'));
 var MongoSessionStore = require('session-mongoose')(require('connect'));
 var sessionStore = new MongoSessionStore({ url: credentials.mongo[app.get('env')].connectionString });
 var bodyParser = require('body-parser');
@@ -36,9 +37,6 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: true,
 }));
-
-
-require('./route.js')(app);
 
 // database configuration
 var mongoose = require('mongoose');
@@ -58,6 +56,12 @@ switch(app.get('env')){
         throw new Error('Unknown execution environment: ' + app.get('env'));
 }
 
+require('./routes/index.js')(app);
+var auth = require('./lib/auth.js')(app);
+auth.init();
+auth.registerRoutes();
+require('./routes/cms.js')(app);
+
 var User = require('./models/user.js');
 // initialize vacations
 User.find(function(err, users){
@@ -73,15 +77,6 @@ User.find(function(err, users){
 
 });
 
-// flash message middleware
-app.use(function(req, res, next){
-    //res.header('Access-Control-Allow-Credentials', true);
-    // if there's a flash message, transfer
-    // it to the context, then clear it
-    res.locals.flash = req.session.flash;
-    delete req.session.flash;
-    next();
-});
 
 
 // 404 catch-all handler (middleware)

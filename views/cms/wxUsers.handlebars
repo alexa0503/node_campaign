@@ -1,0 +1,90 @@
+{{> top}}
+<div id="main">
+    {{> navigation}}
+    <div id="content">
+        <div class="page-header">
+            <div class="pull-left">
+                <h4><i class="icon-home"></i> Dashboard</h4>
+            </div>
+            <div class="pull-right">
+                <ul class="bread">
+                    <li><a href="/cms">Home</a><span class="divider">/</span></li>
+                    <li class='active'>授权用户</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container-fluid" id="content-area">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-head">
+                            <i class="icon-table"></i>
+                            <span>授权用户</span>
+                        </div>
+                        <div class="box-body box-body-nopadding">
+                            <!--<div class="highlight-toolbar">
+                                <div class="pull-left"><div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <a href="#" class='button button-basic button-icon' rel="tooltip" title="Archive"><i class="icon-inbox"></i></a>
+                                        <a href="#" class='button button-basic button-icon' rel="tooltip" title="Mark as spam"><i class="icon-exclamation-sign"></i></a>
+                                        <a href="#" class='button button-basic button-icon' rel="tooltip" title="Delete"><i class="icon-trash"></i></a>
+                                    </div>
+                                </div></div>
+                                <div class="pull-right">
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group">
+                                            <span><strong>1-25</strong> of <strong>1</strong></span>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="#" class="button button-basic button-icon" data-toggle="dropdown"><i class="icon-angle-left"></i></a>
+                                            <a href="#" class="button button-basic button-icon" data-toggle="dropdown"><i class="icon-angle-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <table class="table table-nomargin table-bordered table-pagination">
+                                <thead>
+                                <tr>
+                                    <th>昵称</th>
+                                    <th>头像</th>
+                                    <th>性别</th>
+                                    <th>国家</th>
+                                    <th>省份</th>
+                                    <th>城市</th>
+                                    <th>创建日期</th>
+                                    <th>创建IP</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each wxUsers}}
+                                    <tr>
+                                        <td>{{nickname}}</td>
+                                        <td><img src="{{headImg}}" style="max-width: 120px;max-height: 120px;" /></td>
+                                        <td>{{gender}}</td>
+                                        <td>{{country}}</td>
+                                        <td>{{province}}</td>
+                                        <td>{{city}}</td>
+                                        <td>{{created}}</td>
+                                        <td>{{createdIp}}</td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            </table>
+                            <div class="bottom-table">
+                                <div class="pull-left">
+                                    <!--<a href="#" class="button button-basic">Another button</a>-->
+                                </div>
+                                <div class="pull-right">
+                                    <div class="pagination pagination-custom">
+                                        {{{paginateHelper pagination paginationClass='some' leftText='<i class="icon-double-angle-left"></i>' rightText='<i class="icon-double-angle-right"></i>'}}}
+                                </div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{> bottom}}
