@@ -62,20 +62,6 @@ auth.init();
 auth.registerRoutes();
 require('./routes/cms.js')(app);
 
-var User = require('./models/user.js');
-// initialize vacations
-User.find(function(err, users){
-    if(users.length) return;
-
-    new User({
-        username: 'admin',
-        password: '790220460cea4fee993f568191be1e451e18d16d',
-        email: 'lori.w@live.cn',
-        role: 'ADMIN',
-        created: Date.now()
-    }).save();
-
-});
 
 
 

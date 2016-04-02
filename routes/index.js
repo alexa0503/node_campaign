@@ -15,8 +15,7 @@ module.exports = function(app) {
      */
     app.get('/wx/auth', function(req, res) {
         var app_id = credentials.wx.appId;
-        var url = 'http://base_wx.ompchina.net/sns/UserInfo?appId='+app_id+'&openid='+req.query.openid;
-        //console.log(app_id,req.query);
+        var url = credentials.wx.url+'/sns/UserInfo?appId='+app_id+'&openid='+req.query.openid;
         request.get({url:url,json:true},function (error,response,body) {
             if (!error && response.statusCode == 200) {
                 if (body.errcode){
@@ -50,6 +49,7 @@ module.exports = function(app) {
                 res.redirect('/');
             }
             else{
+                req.write('something bad~');
                 console.log('授权失败~');
             }
 
@@ -62,6 +62,6 @@ var wxAuth = function (req, res, next) {
     }
     var app_id = credentials.wx.appId;
     var callback_url = 'http://' + credentials.hostname + '/wx/auth';
-    var url = 'http://base_wx.ompchina.net/sns/oauth2?appid='+ app_id +'&redirecturl='+ callback_url +'&oauthscope=snsapi_userinfo';
+    var url = credentials.wx.url+'/sns/oauth2?appid='+ app_id +'&redirecturl='+ callback_url +'&oauthscope=snsapi_userinfo';
     res.redirect(url);
 }

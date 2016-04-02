@@ -3,7 +3,8 @@ var request = require('request'),
     credentials = require('../credentials.js'),
     WxUser = require('../models/wxUser.js'),
     paginate = require('express-paginate'),
-    moment = require('moment');
+    moment = require('moment'),
+    User = require('../models/user.js');
 module.exports = function(app) {
     //后台首页
     app.use(paginate.middleware(10, 50));
@@ -54,6 +55,20 @@ module.exports = function(app) {
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/login');
+    });
+
+// initialize vacations
+    User.find(function(err, users){
+        if(users.length) return;
+
+        new User({
+            username: 'admin',
+            password: '790220460cea4fee993f568191be1e451e18d16d',
+            email: 'lori.w@live.cn',
+            role: 'ADMIN',
+            created: Date.now()
+        }).save();
+
     });
 };
 
