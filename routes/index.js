@@ -7,7 +7,14 @@ module.exports = function(app) {
      * 首页
      */
     app.get('/', wxAuth, function(req, res) {
-        res.render('index',{user:req.session.wxUser});
+        var wxShare = {};
+        wxShare.appId = credentials.wx.appId;
+        wxShare.url = credentials.wx.url;
+        wxShare.title = '微信分享标题';
+        wxShare.desc = '微信分享描述';
+        wxShare.link = 'http://'+credentials.hostname;
+        wxShare.imgUrl = 'http://'+credentials.hostname+'/images/share.jpg'
+        res.render('index',{user:req.session.wxUser,wxShare:wxShare});
     });
 
     /**
