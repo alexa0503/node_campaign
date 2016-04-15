@@ -106,15 +106,12 @@ module.exports = function(app) {
             user:req.user,
             active: { caseParent:true, caseAdd: true },
             title: '新增案例',
-            formUrl: '/upload/add'
+            formUrl: '/cms/case/add'
         };
         res.render('cms/case_form', context);
     });
     //案例\项目post
-    app.post('/upload/:id', function (req,res) {
-        if ( 'add' != req.params.id){
-            console.log(req.params.id);
-        }
+    app.post('/cms/case/add', function (req,res) {
         var form = new formidable.IncomingForm();
         var tmpDir = path.join(__dirname, '../public/uploads/tmp/');
         form.uploadDir = tmpDir//文件保存的临时目录为当前项目下的tmp文件夹
@@ -127,87 +124,51 @@ module.exports = function(app) {
         form.parse(req, function(err, fields, file) {
             console.log(fields);
             var filePath = '';
-            if(file.imgFile && file.imgFile.size > 0){
-                filePath = file.imgFile.path;
-                var targetDir = path.join(__dirname, '../public/uploads/');
-                console.log(__dirname,targetDir);
-                if (!fs.existsSync(targetDir)) {
-                    fs.mkdir(targetDir);
-                }
-                var fileExt = filePath.substring(filePath.lastIndexOf('.'));
-                //判断文件类型是否允许上传
-                if (('.jpg.jpeg.png.gif').indexOf(fileExt.toLowerCase()) === -1) {
-                    //var err = new Error('此文件类型不允许上传');
-                    res.json({code:-1, message:'此文件类型不允许上传'});
-                } else {
-                    //以当前时间戳对上传文件进行重命名
-                    var fileName = new Date().getTime() + fileExt;
-                    var targetFile = path.join(targetDir, fileName);
-                    //移动文件
-                    fs.rename(filePath, targetFile, function (err) {
+
+            filePath = file.imgFile.path;
+            var targetDir = path.join(__dirname, '../public/uploads/');
+            console.log(__dirname,targetDir);
+            if (!fs.existsSync(targetDir)) {
+                fs.mkdir(targetDir);
+            }
+            var fileExt = filePath.substring(filePath.lastIndexOf('.'));
+            //判断文件类型是否允许上传
+            if (('.jpg.jpeg.png.gif').indexOf(fileExt.toLowerCase()) === -1) {
+                //var err = new Error('此文件类型不允许上传');
+                res.json({code:-1, message:'此文件类型不允许上传'});
+            } else {
+                //以当前时间戳对上传文件进行重命名
+                var fileName = new Date().getTime() + fileExt;
+                var targetFile = path.join(targetDir, fileName);
+                //移动文件
+                fs.rename(filePath, targetFile, function (err) {
+                    if (err) {
+                        console.info(err);
+                        res.json({code:-1, message:'操作失败'});
+                    } else {
+                        //上传成功，返回文件的相对路径
+                        var fileUrl = '/uploads/' + fileName;
+                        res.json({code:0, fileUrl:fileUrl});
+
+                    }
+                });
+                process.nextTick(function(){
+                    fs.unlink(filePath, function(err) {
                         if (err) {
+                            console.info("删除上传时生成的临时文件失败");
                             console.info(err);
-                            res.json({code:-1, message:'操作失败'});
                         } else {
-                            //上传成功，返回文件的相对路径
-                            var fileUrl = '/uploads/' + fileName;
-
-                            res.json({code:0, fileUrl:fileUrl});
-
+                            console.info("删除上传时生成的临时文件");
+                            var data = {
+                                title: fields.title,
+                                desc: fields.desc,
+                                link: fields.link,
+                                imgPath: fileName
+                            };
+                            new Case(data).save();
                         }
                     });
-                    process.nextTick(function(){
-                        fs.unlink(filePath, function(err) {
-                            if (err) {
-                                console.info("删除上传时生成的临时文件失败");
-                                console.info(err);
-                            } else {
-                                console.info("删除上传时生成的临时文件");
-                                var data = {
-                                    title: fields.title,
-                                    desc: fields.desc,
-                                    link: fields.link,
-                                    imgPath: fileName
-                                };
-                                if ( 'add' == req.params.id ){
-                                    data.createdTime = Date.now();
-                                    data.createdIp = req.ip;
-                                }
-                                if ( 'add' == req.params.id){
-                                    //new Case(data).save();
-                                    Case.create(data, function (error, doc) {
-                                        if (error)
-                                            res.json({code:-1, message:'数据操作失败'});
-                                        console.log(doc);
-                                    })
-                                }
-                                else{
-                                    Case.findOneAndUpdate({_id:req.params.id}, data, {upsert:true}, function(err, doc){
-                                        if (err)
-                                            res.json({code:-1, message:'数据操作失败'});
-                                    });
-                                }
-                            }
-                        });
-                    });
-                }
-            }
-            else{
-                if ( 'add' == req.params.id ){
-                    res.json({code:-1, message:'图片不能为空'});
-                }
-                else{
-                    Case.findById(req.params.id,function (err, result) {
-                        result.title = fields.title;
-                        result.desc = fields.desc;
-                        result.link = fields.link;
-                        result.save(function (err) {
-                            if (err)
-                                res.json({code:-1, message:'数据操作失败'});
-                            res.json({code:0, message:''});
-                        })
-                    })
-                }
+                });
             }
         });
     });
