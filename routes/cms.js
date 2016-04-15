@@ -125,12 +125,12 @@ module.exports = function(app) {
             fs.mkdir(tmpDir);
         }
         form.parse(req, function(err, fields, file) {
-            //console.log(fields);
+            console.log(fields);
             var filePath = '';
             if(file.imgFile && file.imgFile.size > 0){
                 filePath = file.imgFile.path;
                 var targetDir = path.join(__dirname, '../public/uploads/');
-                //console.log(__dirname,targetDir);
+                console.log(__dirname,targetDir);
                 if (!fs.existsSync(targetDir)) {
                     fs.mkdir(targetDir);
                 }
@@ -151,30 +151,7 @@ module.exports = function(app) {
                         } else {
                             //上传成功，返回文件的相对路径
                             var fileUrl = '/uploads/' + fileName;
-                            var data = {
-                                title: fields.title,
-                                desc: fields.desc,
-                                link: fields.link,
-                                imgPath: fileName
-                            };
-                            if ( 'add' == req.params.id ){
-                                data.createdTime = Date.now();
-                                data.createdIp = req.ip;
-                            }
-                            if ( 'add' == req.params.id){
-                                //new Case(data).save();
-                                Case.create(data, function (error, doc) {
-                                    if (error)
-                                        res.json({code:-1, message:'数据操作失败'});
-                                    console.log(doc);
-                                })
-                            }
-                            else{
-                                Case.findOneAndUpdate({_id:req.params.id}, data, {upsert:true}, function(err, doc){
-                                    if (err)
-                                        res.json({code:-1, message:'数据操作失败'});
-                                });
-                            }
+
                             res.json({code:0, fileUrl:fileUrl});
 
                         }
@@ -186,22 +163,51 @@ module.exports = function(app) {
                                 console.info(err);
                             } else {
                                 console.info("删除上传时生成的临时文件");
+                                var data = {
+                                    title: fields.title,
+                                    desc: fields.desc,
+                                    link: fields.link,
+                                    imgPath: fileName
+                                };
+                                if ( 'add' == req.params.id ){
+                                    data.createdTime = Date.now();
+                                    data.createdIp = req.ip;
+                                }
+                                if ( 'add' == req.params.id){
+                                    //new Case(data).save();
+                                    Case.create(data, function (error, doc) {
+                                        if (error)
+                                            res.json({code:-1, message:'数据操作失败'});
+                                        console.log(doc);
+                                    })
+                                }
+                                else{
+                                    Case.findOneAndUpdate({_id:req.params.id}, data, {upsert:true}, function(err, doc){
+                                        if (err)
+                                            res.json({code:-1, message:'数据操作失败'});
+                                    });
+                                }
                             }
                         });
                     });
                 }
             }
             else{
-                Case.findById(req.params.id,function (err, result) {
-                    result.title = fields.title;
-                    result.desc = fields.desc;
-                    result.link = fields.link;
-                    result.save(function (err) {
-                        if (err)
-                            res.json({code:-1, message:'数据操作失败'});
-                        res.json({code:0, message:''});
+                if ( 'add' == req.params.id ){
+                    res.json({code:-1, message:'图片不能为空'});
+                }
+                else{
+                    Case.findById(req.params.id,function (err, result) {
+                        result.title = fields.title;
+                        result.desc = fields.desc;
+                        result.link = fields.link;
+                        result.save(function (err) {
+                            if (err)
+                                res.json({code:-1, message:'数据操作失败'});
+                            res.json({code:0, message:''});
+                        })
                     })
-                })
+                }
             }
         });
     });

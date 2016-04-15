@@ -4,9 +4,9 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 app.set('port', process.env.PORT || 3000);
 var credentials = require('./credentials.js');
-// set up handlebars view engine
 
 var paginateHelper = require('express-handlebars-paginate');
+// set up handlebars view engine
 var handlebars = require('express-handlebars');
 var hbs = handlebars.create({
     defaultLayout:'main',
@@ -66,8 +66,10 @@ app.use(require('connect-flash')());
 var MongoSessionStore = require('session-mongoose')(require('connect'));
 var sessionStore = new MongoSessionStore({ url: credentials.mongo[app.get('env')].connectionString });
 var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')({
     store: sessionStore,
