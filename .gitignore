@@ -1,6 +1,7 @@
 .idea/
 .idea/*
 credentials.js
+/public/uploads/*
 # Logs
 logs
 *.log
