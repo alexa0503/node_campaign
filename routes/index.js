@@ -1,21 +1,39 @@
 var WxUser = require('../models/wxUser.js'),
+    Case = require('../models/case.js'),
     request = require('request'),
     url = require('url'),
+    moment = require('moment'),
     credentials = require('../credentials.js');
 module.exports = function(app) {
-    /**
-     * 首页
-     */
-    app.get('/', wxAuth, function(req, res) {
+
+    //首页
+    app.get('/', function(req, res, next) {
+
         var wxShare = {};
         wxShare.appId = credentials.wx.appId;
         wxShare.url = credentials.wx.url;
         wxShare.title = '微信分享标题';
         wxShare.desc = '微信分享描述';
         wxShare.link = 'http://'+credentials.hostname;
-        wxShare.imgUrl = 'http://'+credentials.hostname+'/images/share.jpg'
-        res.render('index',{user:req.session.wxUser,wxShare:wxShare});
+        wxShare.imgUrl = 'http://'+credentials.hostname+'/images/share.jpg';
+        Case.find().sort({'_id':-1}).limit(6).exec(function (err,result) {
+            //if (err) return handleError(err);
+            if (err) next(err);
+            var cases = result.map(function (item) {
+                return {
+                    title: item.title,
+                    imgPath: item.imgPath,
+                    desc: item.desc,
+                    link: item.link,
+                    created: moment(item.created).format('YYYY-MM-DD HH:MM:SS'),
+                    createdIp: item.createdIp
+                }
+            });
+            res.render('index',{user:req.session.wxUser,wxShare:wxShare,cases:cases});
+        })
+
     });
+
 
     /**
      * 微信授权回调
@@ -29,18 +47,7 @@ module.exports = function(app) {
                     req.write('something bad~'+body.message);
                     return;
                 }
-                req.session.wxUser = {
-                    openid:body.openid,
-                    nickname:body.nickname,
-                    headImg: body.headimgurl,
-                    gender: body.sex,
-                    province: body.province,
-                    city: body.city,
-                    country: body.country,
-                    created: Date.now(),
-                    createdIp:req.headers['x-forwarded-for'] || req.connection.remoteAddress
-                };
-                WxUser.findOneAndUpdate({openid:body.openid},{
+                var data = {
                     nickname: body.nickname,
                     headImg: body.headimgurl,
                     gender: body.sex,
@@ -48,10 +55,12 @@ module.exports = function(app) {
                     city: body.city,
                     country: body.country,
                     created: Date.now(),
-                    createdIp:req.headers['x-forwarded-for'] || req.connection.remoteAddress
-                },{upsert:true},function (error,doc) {
+                    createdIp:req.ip//headers['x-forwarded-for'] || req.connection.remoteAddress
+                };
+                req.session.wxUser = data;
+                req.session.wxUser.openid = body.openid;
+                WxUser.findOneAndUpdate({openid:body.openid},data,{upsert:true},function (error,doc) {
                     console.log(error, doc);
-
                 });
                 res.redirect('/');
             }

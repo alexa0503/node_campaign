@@ -1,2 +1,93 @@
-<img src="{{ user.headImg }}" />
-{{ user.nickname }}
+{{> nav}}
+<section id="home" name="home"></section>
+<div id="headerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>Watching</h1>
+            </div>
+        </div><! --/row -->
+    </div><! --/container -->
+</div><! --/headerwrap -->
+
+
+<! -- PORTFOLIO SECTION -->
+<section id="portfolio" name="portfolio"></section>
+<div id="portfoliowrap">
+    <div class="container">
+        <div class="row">
+            <h1>案例展示</h1>
+        {{#each cases}}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
+                <div class="project-wrapper">
+                    <div class="project">
+                        <div class="photo-wrapper">
+                            <div class="photo">
+                                <a class="fancybox" href="{{link}}"><img class="img-responsive" src="/uploads/{{imgPath}}" alt=""></a>
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- col-lg-4 -->
+            {{#ifCond @index '==' 2}}
+            </div>
+            <div class="row mt">
+            {{/ifCond}}
+        {{/each}}
+        </div><!-- /row -->
+
+    </div><! --/container -->
+    <div class="container">
+        <div class="row mt centered">
+            <h1>MY DESIGN PROCESS</h1>
+            <div class="col-lg-4 proc">
+                <i class="fa fa-coffee"></i>
+                <h3>The Meeting</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+            </div>
+            <div class="col-lg-4 proc">
+                <i class="fa fa-cogs"></i>
+                <h3>The Ideas</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+            </div>
+            <div class="col-lg-4 proc">
+                <i class="fa fa-heart"></i>
+                <h3>The Product</h3>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+            </div>
+
+        </div><! --/row -->
+    </div><! --/container -->
+</div><! --/Portfoliowrap -->
+
+<! -- PORTFOLIO SEPARATOR -->
+<div class="sep portfolio" data-stellar-background-ratio="0.5"></div>
+
+
+
+{{#section 'scripts'}}
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{static 'js/classie.js'}}"></script>
+    <script src="{{static 'js/bootstrap.min.js'}}"></script>
+    <script src="{{static 'js/smoothscroll.js'}}"></script>
+    <script src="{{static 'js/jquery.stellar.min.js'}}"></script>
+    <script src="{{static 'js/fancybox/jquery.fancybox.js'}}"></script>
+    <script src="{{static 'js/main.js'}}"></script>
+    <script>
+        $(function(){
+            $.stellar({
+                horizontalScrolling: false,
+                verticalOffset: 40
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            //    fancybox
+            //jQuery(".fancybox").fancybox();
+        });
+    </script>
+{{/section}}
+{{>wxShare}}

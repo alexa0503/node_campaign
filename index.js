@@ -2,9 +2,10 @@ var http = require('http'),
     express = require('express');
 var app = express();
 app.use(express.static(__dirname + '/public'));
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3000);
 var credentials = require('./credentials.js');
 // set up handlebars view engine
+
 var paginateHelper = require('express-handlebars-paginate');
 var handlebars = require('express-handlebars');
 var hbs = handlebars.create({
@@ -21,8 +22,45 @@ var hbs = handlebars.create({
     }
 })
 hbs.handlebars.registerHelper('paginateHelper', paginateHelper.createPagination);
+hbs.handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+    lvalue = parseFloat(lvalue);
+    rvalue = parseFloat(rvalue);
+
+    return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+});
+hbs.handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+    switch (operator) {
+        case '==':
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case '!=':
+            return (v1 != v2) ? options.fn(this) : options.inverse(this);
+        case '===':
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case '<':
+            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+        case '<=':
+            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+        case '>':
+            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+        case '>=':
+            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+        case '&&':
+            return (v1 && v2) ? options.fn(this) : options.inverse(this);
+        case '||':
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
 
 app.use(require('connect-flash')());
 var MongoSessionStore = require('session-mongoose')(require('connect'));

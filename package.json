@@ -25,13 +25,18 @@
     "express-handlebars-paginate": "^1.0.3",
     "express-paginate": "^0.1.1",
     "express-session": "^1.13.0",
+    "formidable": "^1.0.17",
+    "fs": "0.0.2",
+    "http": "0.0.0",
     "moment": "^2.12.0",
     "mongoose": "^4.4.10",
     "mongoose-paginate": "^5.0.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "request": "^2.69.0",
-    "session-mongoose": "^0.5.2"
+    "session-mongoose": "^0.5.2",
+    "url": "^0.11.0"
   },
   "devDependencies": {}
 }

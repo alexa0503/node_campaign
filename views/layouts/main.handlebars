@@ -1,68 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>campaign</title>
-    <link rel="stylesheet" href="{{static 'css/common.css'}}">
-    <script src="{{static '/js/jquery-2.1.1.min.js'}}"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{static 'ico/favicon.ico'}}">
 
-    <!--移动端版本兼容 -->
-    <script type="text/javascript">
-        var phoneWidth =  parseInt(window.screen.width);
-        var phoneScale = phoneWidth/640;
-        var ua = navigator.userAgent;
-        if (/Android (\d+\.\d+)/.test(ua)){
-            var version = parseFloat(RegExp.$1);
-            if(version>2.3){
-                document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
-            }else{
-                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
-            }
-        } else {
-            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
-        }
+    <title>Watching</title>
 
-        var isMain=false;
-    </script>
-    <!--移动端版本兼容 end -->
+    <!-- Bootstrap core CSS -->
+    <link href="{{static 'css/bootstrap.min.css'}}" rel="stylesheet">
 
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="{{wxShare.url}}/resources/Scripts/weixinjssdk.js"></script>
-    <script type="text/javascript">
-        DATAForWeixin.debug = false; // 可设置为 true 以调试
-        DATAForWeixin.appId = '{{wxShare.appId}}';//账号的appid//
-        DATAForWeixin.openid = '';
-        DATAForWeixin.sharecampaign = 'node测试';//campaign名称
-        var wxData1 = {
-            title: '{{wxShare.desc}}',
-            imgUrl: '{{wxShare.imgUrl}}',
-            link: '{{wxShare.link}}',
-            success:function(){}
-        };
-        var wxData2 = {
-            title: '{{wxShare.title}}',
-            imgUrl: '{{wxShare.imgUrl}}',
-            link: '{{wxShare.link}}',
-            desc: '{{wxShare.desc}}',
-            success:function(){}
-        };
+    <!-- Custom styles for this template -->
+    <link href="{{static 'css/style.css'}}" rel="stylesheet">
+    <link href="{{static 'css/font-awesome.min.css'}}" rel="stylesheet">
+    <link href="{{static 'js/fancybox/jquery.fancybox.css'}}" rel="stylesheet" />
 
-        /* 请修改以下文字和图片，定制分享文案 */
-        DATAForWeixin.setTimeLine(wxData1);
-        DATAForWeixin.setAppMessage(wxData2);
-        DATAForWeixin.setQQ({
-            title: ' ',
-            imgUrl: '',
-            desc: ' ',
-            link: ''
-        });
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="{{static 'js/ie8-responsive-file-warning.js'}}"></script><![endif]-->
 
-    </script>
-
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="{{static 'js/jquery.min.js'}}"></script>
 </head>
-<body>
+<body data-spy="scroll" data-offset="0" data-target="#theMenu">
 {{{body}}}
+{{{ _sections.scripts }}}
 </body>
 </html>

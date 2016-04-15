@@ -1,0 +1,32 @@
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="{{wxShare.url}}/resources/Scripts/weixinjssdk.js"></script>
+<script type="text/javascript">
+    DATAForWeixin.debug = false; // 可设置为 true 以调试
+    DATAForWeixin.appId = '{{wxShare.appId}}';//账号的appid//
+    DATAForWeixin.openid = '';
+    DATAForWeixin.sharecampaign = 'node测试';//campaign名称
+    var wxData1 = {
+        title: '{{wxShare.desc}}',
+        imgUrl: '{{wxShare.imgUrl}}',
+        link: '{{wxShare.link}}',
+        success:function(){}
+    };
+    var wxData2 = {
+        title: '{{wxShare.title}}',
+        imgUrl: '{{wxShare.imgUrl}}',
+        link: '{{wxShare.link}}',
+        desc: '{{wxShare.desc}}',
+        success:function(){}
+    };
+
+    /* 请修改以下文字和图片，定制分享文案 */
+    DATAForWeixin.setTimeLine(wxData1);
+    DATAForWeixin.setAppMessage(wxData2);
+    DATAForWeixin.setQQ({
+        title: ' ',
+        imgUrl: '',
+        desc: ' ',
+        link: ''
+    });
+
+</script>
