@@ -56,15 +56,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{#each cases}}
+                                {{#each works}}
                                     <tr>
-                                        <td><a href="/cms/case/edit/{{_id}}">{{title}}</a></td>
+                                        <td><a href="/cms/work/edit/{{_id}}">{{title}}</a></td>
                                         <td><img src="/uploads/{{imgPath}}" style="max-width: 200px;max-height: 200px;" /></td>
                                         <td>{{desc}}</td>
                                         <td><a href="{{link}}">{{link}}</a></td>
                                         <td>{{createdTime}}</td>
                                         <td>{{createdIp}}</td>
-                                        <td><a href="/cms/case/delete/{{_id}}" class="delete">删除</a></td>
+                                        <td><a href="/cms/work/delete/{{_id}}" class="delete">删除</a></td>
                                     </tr>
                                 {{/each}}
                                 </tbody>
