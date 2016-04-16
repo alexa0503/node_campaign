@@ -28,6 +28,36 @@
     </section>
     <!-- /HERO -->
 
+    <!-- CLIENTS -->
+    <section class="module module-parallax bg-light-60" data-background="/images/section-3.jpg">
+
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Owl-carousel start -->
+                <div class="slider-clients owl-carousel text-center">
+                    {{#each works}}
+                        <!-- Client logo start -->
+                        <div class="owl-item">
+                            <div class="col-sm-12">
+                                <div class="client-item">
+                                    <a href="{{link}}"><img src="/uploads/{{imgPath}}" alt="{{desc}}"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  Client logo end -->
+                    {{/each}}
+
+                </div>
+                <!-- Owl-carousel end -->
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- /CLIENTS -->
 
 
     <!-- FOOTER -->
