@@ -1,0 +1,127 @@
+{{> top}}
+<div id="main">
+    {{> navigation}}
+    <div id="content">
+        <div class="page-header">
+            <div class="pull-left">
+                <h4><i class="icon-home"></i> {{title}}</h4>
+            </div>
+            <div class="pull-right">
+                <ul class="bread">
+                    <li><a href="/cms">Home</a><span class="divider">/</span></li>
+                    <li class='active'>{{title}}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container-fluid" id="content-area">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-head">
+                            <i class="icon-table"></i>
+                            <span>{{title}}</span>
+                        </div>
+                        <div class="box-body box-body-nopadding">
+                            <!--<div class="highlight-toolbar">
+                                <div class="pull-left"><div class="btn-toolbar">
+                                    <div class="btn-group">
+                                        <a href="#" class='button button-basic button-icon' rel="tooltip" title="Archive"><i class="icon-inbox"></i></a>
+                                        <a href="#" class='button button-basic button-icon' rel="tooltip" title="Mark as spam"><i class="icon-exclamation-sign"></i></a>
+                                        <a href="#" class='button button-basic button-icon' rel="tooltip" title="Delete"><i class="icon-trash"></i></a>
+                                    </div>
+                                </div></div>
+                                <div class="pull-right">
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group">
+                                            <span><strong>1-25</strong> of <strong>1</strong></span>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="#" class="button button-basic button-icon" data-toggle="dropdown"><i class="icon-angle-left"></i></a>
+                                            <a href="#" class="button button-basic button-icon" data-toggle="dropdown"><i class="icon-angle-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <table class="table table-nomargin table-bordered table-pagination">
+                                <thead>
+                                <tr>
+                                    <th>标题</th>
+                                    <th>缩略图</th>
+                                    <th>描述</th>
+                                    <th>网站地址</th>
+                                    <th>创建日期</th>
+                                    <th>创建IP</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each cases}}
+                                    <tr>
+                                        <td><a href="/cms/case/edit/{{_id}}">{{title}}</a></td>
+                                        <td><img src="/uploads/{{imgPath}}" style="max-width: 200px;max-height: 200px;" /></td>
+                                        <td>{{desc}}</td>
+                                        <td><a href="{{link}}">{{link}}</a></td>
+                                        <td>{{createdTime}}</td>
+                                        <td>{{createdIp}}</td>
+                                        <td><a href="/cms/case/delete/{{_id}}" class="delete">删除</a></td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            </table>
+                            <div class="bottom-table">
+                                <div class="pull-left">
+                                    <!--<a href="#" class="button button-basic">Another button</a>-->
+                                </div>
+                                <div class="pull-right">
+                                    <div class="pagination pagination-custom">
+                                        {{{paginateHelper pagination paginationClass='some' leftText='<i class="icon-double-angle-left"></i>' rightText='<i class="icon-double-angle-right"></i>'}}}
+                                </div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{> bottom}}
+
+{{#section 'scripts'}}
+    <script>
+        $(document).ready(function () {
+            var options = {
+                element: '#box-body',
+                position: 'absolute',
+                type: 'minimalist',
+                z_index: 2000,
+                delay: 2000,
+                offset: {x: 0, y: 200},
+                progressbar: false,
+                placement: {
+                    from: 'bottom',
+                    align: 'center'
+                }
+            };
+            $('.delete').on('click', function () {
+                var obj = $(this).parent('td').parent('tr');
+                var url = $(this).attr('href');
+                if (confirm('此操作不可返回,是否继续?')){
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.code == 0)
+                                obj.remove();
+                            else
+                                    $.notify(data.message, options);
+                        }
+                    })
+                    obj.remove();
+                }
+
+                return false;
+            })
+        });
+    </script>
+{{/section}}

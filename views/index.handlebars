@@ -1,93 +1,518 @@
-{{> nav}}
-<section id="home" name="home"></section>
-<div id="headerwrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h1>Watching</h1>
+
+
+<!-- PRELOADER -->
+<div class="page-loader">
+    <div class="loader">Loading...</div>
+</div>
+<!-- /PRELOADER -->
+
+<!-- WRAPPER -->
+<div class="wrapper">
+
+    <!-- NAVIGATION -->
+    {{>nav}}
+    <!-- /NAVIGATION -->
+
+    <!-- HERO -->
+    <section data-background="{{static 'images/section-12.jpg'}}" class="module-hero module-parallax module-full-height bg-film" id="hero" style="background-image: url(&quot;/images/section-12.jpg&quot;); background-position: 50% 0px; height: 610px;">
+
+        <!-- HERO TEXT -->
+        <div class="hero-caption">
+            <div class="hero-text">
+                <h5 class="mh-line-size-4 font-alt m-b-50">Simple &amp; Powerful</h5>
+                <h1 class="mh-line-size-1 font-alt m-b-60">帮你开启财富之门</h1>
+                <h5 class="mh-line-size-5 font-alt m-b-50">Every mountain top is within reach if you just keep climbing.</h5>
             </div>
-        </div><! --/row -->
-    </div><! --/container -->
-</div><! --/headerwrap -->
+        </div>
+        <!-- /HERO TEXT -->
+    </section>
+    <!-- /HERO -->
 
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="module">
 
-<! -- PORTFOLIO SECTION -->
-<section id="portfolio" name="portfolio"></section>
-<div id="portfoliowrap">
-    <div class="container">
-        <div class="row">
-            <h1>案例展示</h1>
-        {{#each cases}}
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 desc">
-                <div class="project-wrapper">
-                    <div class="project">
-                        <div class="photo-wrapper">
-                            <div class="photo">
-                                <a class="fancybox" href="{{link}}"><img class="img-responsive" src="/uploads/{{imgPath}}" alt=""></a>
+        <div class="container">
+
+            <!-- MODULE TITLE -->
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">Our Works</h2>
+                </div>
+            </div>
+            <!-- /MODULE TITLE -->
+
+            <!-- FILTER -->
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <ul id="filters" class="filters font-alt">
+                        <li><a href="index.html#" data-filter="*"class="current">All</a></li>
+                        <li><a href="index.html#" data-filter=".branding">Branding</a></li>
+                        <li><a href="index.html#" data-filter=".design">Design</a></li>
+                        <li><a href="index.html#" data-filter=".photo">Photo</a></li>
+                        <li><a href="index.html#" data-filter=".web">Web</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- /FILTER -->
+
+            <!-- WORKS GRID -->
+            <div class="works-grid-wrapper">
+
+                <div id="works-grid" class="works-grid works-hover-w">
+
+                    <!-- DO NOT DELETE THIS DIV -->
+                    <div class="grid-sizer"></div>
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item tall branding">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-1.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">The European languages</h3>
+                                <div class="work-descr">
+                                    Branding
+                                </div>
                             </div>
-                            <div class="overlay"></div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item design">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-2.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">The languages only</h3>
+                                <div class="work-descr">
+                                    Design
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item design">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-3.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">Everyone realizes</h3>
+                                <div class="work-descr">
+                                    Design
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item design">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-4.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">Corporate Identity</h3>
+                                <div class="work-descr">
+                                    Design
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item design">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-5.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">Cambridge friend</h3>
+                                <div class="work-descr">
+                                    Design
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item wide-tall branding photo web">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-6.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">The grammar of the resulting language</h3>
+                                <div class="work-descr">
+                                    Branding / Photo / Web
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item wide design photo web">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-7.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">A collection of textile samples</h3>
+                                <div class="work-descr">
+                                    Design / Photo / Web
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item branding photo">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-8.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">Gregor then turned</h3>
+                                <div class="work-descr">
+                                    Branding / Photo
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item branding photo">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-9.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">He must have tried it</h3>
+                                <div class="work-descr">
+                                    Branding / Photo
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                    <!-- PORTFOLIO ITEM -->
+                    <div class="work-item wide design web">
+                        <a href="portfolio-single-1.html">
+                            <img src="{{static 'images/portfolio/img-10.jpg'}}" alt="">
+                            <div class="work-caption font-alt">
+                                <h3 class="work-title">However hard he threw himself</h3>
+                                <div class="work-descr">
+                                    Design / Web
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /PORTFOLIO ITEM -->
+
+                </div>
+
+            </div>
+            <!-- /WORKS GRID -->
+
+            <!-- SHOW MORE -->
+            <div class="row m-t-70 text-center">
+                <div class="col-sm-12">
+
+                    <button href="#" id="show-more" class="btn btn-round btn-b">More works</button>
+
+                </div>
+            </div>
+            <!-- /SHOW MORE -->
+
+        </div>
+
+    </section>
+    <!-- /PORTFOLIO -->
+
+    <!-- CLIENTS -->
+    <section class="module module-parallax bg-light-60" data-background="{{static 'images/section-3.jpg'}}">
+
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Owl-carousel start -->
+                <div class="slider-clients owl-carousel text-center">
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-1.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-2.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-3.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-4.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-5.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-6.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-7.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-8.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                    <!-- Client logo start -->
+                    <div class="owl-item">
+                        <div class="col-sm-12">
+                            <div class="client-item">
+                                <img src="{{static 'images/logos/logo-9.png'}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <!--  Client logo end -->
+
+                </div>
+                <!-- Owl-carousel end -->
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- /CLIENTS -->
+
+
+    <hr class="divider"><!-- DIVIDER -->
+
+    <!-- BLOG 3 COLUMN -->
+    <section class="module">
+
+        <div class="container">
+
+            <!-- MODULE TITLE -->
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">Latest blog posts</h2>
+                </div>
+            </div>
+            <!-- /MODULE TITLE -->
+
+            <div class="row multi-columns-row">
+
+                <!-- POST -->
+                <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
+                    <div class="post">
+                        <div class="post-media">
+                            <a href="blog-single.html">
+                                <img src="{{static 'images/blog/blog-1.jpg'}}" alt="">
+                            </a>
+                        </div>
+                        <div class="post-meta font-alt">
+                            By <a href="index.html#">Mark Stone</a> / 23 November / 3 comm.
+                        </div>
+                        <div class="post-header">
+                            <h5 class="post-title font-alt">
+                                <a href="blog-single.html">The European languages are members</a>
+                            </h5>
+                        </div>
+                        <div class="post-entry">
+                            <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
+                        </div>
+                        <div class="post-more-link font-alt">
+                            <a href="blog-single.html">Read more</a>
                         </div>
                     </div>
                 </div>
-            </div><!-- col-lg-4 -->
-            {{#ifCond @index '==' 2}}
+                <!-- /POST -->
+
+                <!-- POST -->
+                <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
+                    <div class="post">
+                        <div class="post-media">
+                            <a href="blog-single.html">
+                                <img src="{{static 'images/blog/blog-2.jpg'}}" alt="">
+                            </a>
+                        </div>
+                        <div class="post-meta font-alt">
+                            By <a href="index.html#">Mark Stone</a> / 6 November / 2 comm.
+                        </div>
+                        <div class="post-header">
+                            <h5 class="post-title font-alt">
+                                <a href="blog-single.html">The new common language will be</a>
+                            </h5>
+                        </div>
+                        <div class="post-entry">
+                            <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
+                        </div>
+                        <div class="post-more-link font-alt">
+                            <a href="blog-single.html">Read more</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /POST -->
+
+                <!-- POST -->
+                <div class="col-sm-6 col-md-4 col-lg-4 m-b-60">
+                    <div class="post">
+                        <div class="post-media">
+                            <a href="blog-single.html">
+                                <img src="{{static 'images/blog/blog-3.jpg'}}" alt="">
+                            </a>
+                        </div>
+                        <div class="post-meta font-alt">
+                            By <a href="index.html#">Mark Stone</a> / 23 November / 3 comm.
+                        </div>
+                        <div class="post-header">
+                            <h5 class="post-title font-alt">
+                                <a href="blog-single.html">It will be as simple as Occidental</a>
+                            </h5>
+                        </div>
+                        <div class="post-entry">
+                            <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
+                        </div>
+                        <div class="post-more-link font-alt">
+                            <a href="blog-single.html">Read more</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /POST -->
+
             </div>
-            <div class="row mt">
-            {{/ifCond}}
-        {{/each}}
-        </div><!-- /row -->
 
-    </div><! --/container -->
-    <div class="container">
-        <div class="row mt centered">
-            <h1>MY DESIGN PROCESS</h1>
-            <div class="col-lg-4 proc">
-                <i class="fa fa-coffee"></i>
-                <h3>The Meeting</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+        </div>
+
+    </section>
+    <!-- BLOG 3 COLUMN -->
+
+    <!-- FOOTER -->
+    <section class="module-small bg-light">
+
+        <div class="container">
+
+
+
+            <div class="row m-t-40">
+
+                <div class="col-sm-6">
+                    <h5 class="font-alt m-t-0 m-b-20">Connect</h5>
+                    Email: wanga503@outlook.com
+                    <br>
+                    Phone: +086 15618892632
+                </div>
+
+                <div class="col-sm-6">
+                    <h5 class="font-alt m-t-0 m-b-20">Useful links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/service">Services</a></li>
+                        <li><a href="/work">Works</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+
             </div>
-            <div class="col-lg-4 proc">
-                <i class="fa fa-cogs"></i>
-                <h3>The Ideas</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+
+        </div>
+
+    </section>
+
+    <hr class="divider"><!-- DIVIDER -->
+
+    <footer class="module-small bg-light p-t-30 p-b-30">
+
+        <div class="container">
+
+            <div class="col-sm-12">
+                <p class="copyright text-center m-b-0">© 2015 <a href="index.html#">Incanto</a>, All Rights Reserved.</p>
             </div>
-            <div class="col-lg-4 proc">
-                <i class="fa fa-heart"></i>
-                <h3>The Product</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
-            </div>
 
-        </div><! --/row -->
-    </div><! --/container -->
-</div><! --/Portfoliowrap -->
+        </div>
 
-<! -- PORTFOLIO SEPARATOR -->
-<div class="sep portfolio" data-stellar-background-ratio="0.5"></div>
+    </footer>
+    <!-- /FOOTER -->
 
+</div>
+<!-- /WRAPPER -->
 
-
+<!-- SCROLLTOP -->
+<div class="scroll-up">
+    <a href="index.html#totop"><i class="fa fa-angle-double-up"></i></a>
+</div>
 {{#section 'scripts'}}
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{static 'js/classie.js'}}"></script>
-    <script src="{{static 'js/bootstrap.min.js'}}"></script>
+    <!-- Javascript files -->
+    <script src="{{static 'js/jquery-2.1.3.min.js'}}"></script>
+    <script src="{{static 'bootstrap/js/bootstrap.min.js'}}"></script>
+    <script src="{{static 'js/jquery.superslides.min.js'}}"></script>
+    <script src="{{static 'js/jquery.mb.YTPlayer.min.js'}}"></script>
+    <script src="{{static 'js/jquery.magnific-popup.min.js'}}"></script>
+    <script src="{{static 'js/owl.carousel.min.js'}}"></script>
+    <script src="{{static 'js/jquery.simple-text-rotator.min.js'}}"></script>
+    <script src="{{static 'js/imagesloaded.pkgd.js'}}"></script>
+    <script src="{{static 'js/isotope.pkgd.min.js'}}"></script>
+    <script src="{{static 'js/packery-mode.pkgd.min.js'}}"></script>
+    <script src="{{static 'js/appear.js'}}"></script>
+    <script src="{{static 'js/jquery.easing.1.3.js'}}"></script>
+    <script src="{{static 'js/wow.min.js'}}"></script>
+    <script src="{{static 'js/jqBootstrapValidation.js'}}"></script>
+    <script src="{{static 'js/jquery.fitvids.js'}}"></script>
+    <script src="{{static 'js/jquery.parallax-1.1.3.js'}}"></script>
     <script src="{{static 'js/smoothscroll.js'}}"></script>
-    <script src="{{static 'js/jquery.stellar.min.js'}}"></script>
-    <script src="{{static 'js/fancybox/jquery.fancybox.js'}}"></script>
-    <script src="{{static 'js/main.js'}}"></script>
-    <script>
-        $(function(){
-            $.stellar({
-                horizontalScrolling: false,
-                verticalOffset: 40
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(function() {
-            //    fancybox
-            //jQuery(".fancybox").fancybox();
-        });
-    </script>
+    <script src="{{static 'js/contact.js'}}"></script>
+    <script src="{{static 'js/custom.js'}}"></script>
 {{/section}}
 {{>wxShare}}

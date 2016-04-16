@@ -1,5 +1,5 @@
 var WxUser = require('../models/wxUser.js'),
-    Case = require('../models/case.js'),
+    Case = require('../models/work.js'),
     request = require('request'),
     url = require('url'),
     moment = require('moment'),
@@ -19,7 +19,7 @@ module.exports = function(app) {
         Case.find().sort({'_id':-1}).limit(6).exec(function (err,result) {
             //if (err) return handleError(err);
             if (err) next(err);
-            var cases = result.map(function (item) {
+            var works = result.map(function (item) {
                 return {
                     title: item.title,
                     imgPath: item.imgPath,
@@ -29,7 +29,7 @@ module.exports = function(app) {
                     createdIp: item.createdIp
                 }
             });
-            res.render('index',{user:req.session.wxUser,wxShare:wxShare,cases:cases});
+            res.render('index',{user:req.session.wxUser,wxShare:wxShare,works:works});
         })
 
     });
