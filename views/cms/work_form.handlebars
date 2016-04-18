@@ -23,30 +23,30 @@
                             <span>{{title}}</span>
                         </div>
                         <div class="box-body box-body-nopadding" id="box-body" style="position: relative;">
-                            <form class="form-horizontal form-bordered form-validate" enctype="multipart/form-data" method="POST" action="{{formUrl}}" id="case-add">
+                            <form class="form-horizontal form-bordered form-validate" enctype="multipart/form-data" method="POST" action="{{formUrl}}" id="work-add">
                                 <div class="control-group">
                                     <label class="control-label" for="title">网站标题</label>
                                     <div class="controls">
-                                        <input type="text" data-rule-minlength="2" data-rule-required="true" class="input-xlarge" id="title" name="title" value="{{case.title}}" >
+                                        <input type="text" data-rule-minlength="2" data-rule-required="true" class="input-xlarge" id="title" name="title" value="{{work.title}}" >
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label" for="link">网站地址</label>
                                     <div class="controls">
-                                        <input type="text" data-rule-minlength="2" data-rule-required="true" class="input-xlarge" id="link" name="link" placeholder="http://" value="{{case.link}}">
+                                        <input type="text" data-rule-minlength="2" data-rule-required="true" class="input-xlarge" id="link" name="link" placeholder="http://" value="{{work.link}}">
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label" for="desc">网站描述</label>
                                     <div class="controls">
-                                        <textarea class="span8 ui-wizard-content ui-helper-reset ui-state-default" name="desc" rows="4">{{case.desc}}</textarea>
+                                        <textarea class="span8 ui-wizard-content ui-helper-reset ui-state-default" name="desc" rows="4">{{work.desc}}</textarea>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label" for="textfield">缩略图片</label>
                                     <div class="controls">
                                         <div data-provides="fileupload" class="fileupload fileupload-new"><input type="hidden" value="" name="">
-                                            <div style="width: 200px; height: 150px;" class="fileupload-new thumbnail"><img src="{{#if case.imgPath}}/uploads/{{case.imgPath}}{{else}}{{static 'cms/img/no-image.png'}}{{/if}}"></div>
+                                            <div style="width: 200px; height: 150px;" class="fileupload-new thumbnail"><img src="{{#if work.imgPath}}/uploads/{{work.imgPath}}{{else}}{{static 'cms/img/no-image.png'}}{{/if}}"></div>
                                             <div style="max-width: 200px; max-height: 150px; line-height: 20px;" class="fileupload-preview fileupload-exists thumbnail"></div>
                                             <div>
                                                 <span class="button button-basic btn-file"><span class="fileupload-new">选择图片</span><span class="fileupload-exists">重新选择</span><input type="file" name="imgFile" ></span>
@@ -56,8 +56,8 @@
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <input type="submit" value="提交" id="case-submit" class="button button-basic-blue">
-                                    <button class="button button-basic" type="button" id="case-cancel">取消</button>
+                                    <input type="submit" value="提交" id="work-submit" class="button button-basic-blue">
+                                    <button class="button button-basic" type="button" id="work-cancel">取消</button>
                                 </div>
                             </form>
                         </div>
@@ -86,10 +86,10 @@
             };
 
 
-            $('#case-cancel').on('click',function () {
-                $('#case-add')[0].reset();
+            $('#work-cancel').on('click',function () {
+                $('#work-add')[0].reset();
             })
-            $('#case-add').submit(function () {
+            $('#work-add').submit(function () {
                 var url = $(this).attr('action');
                 var formData = new FormData($(this)[0]);
                 var file = $(':file[name=imgFile]');
@@ -124,7 +124,7 @@
                             console.log(json);
                             if (json.code == 0){
                                 options.onClose = function () {
-                                    location.href = '/cms/cases'
+                                    location.href = '/cms/works'
                                 }
                                 options.delay = 1000;
                                 $.notify({
@@ -137,7 +137,7 @@
                                     message: json.message
                                 }, options);
                             }
-                            $('#case-submit').prop('disabled',false);
+                            $('#work-submit').prop('disabled',false);
                         },
                         beforeSend : function () {
                             options.delay = 0;
@@ -145,13 +145,13 @@
                                 message: '处理中...',
                                 type: 'info'
                             }, options);
-                            $('#case-submit').prop('disabled',true);
+                            $('#work-submit').prop('disabled',true);
                         },
                         error : function ( jqXHR, textStatus, errorThrown) {
                             $.notify({
                                 message: '上传失败~'+textStatus
                             }, options);
-                            $('#case-submit').prop('disabled',false);
+                            $('#work-submit').prop('disabled',false);
                         }
                     })
                 }
