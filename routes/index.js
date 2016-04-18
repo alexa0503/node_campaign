@@ -16,7 +16,7 @@ module.exports = function(app) {
         wxShare.desc = '微信分享描述';
         wxShare.link = 'http://'+credentials.hostname;
         wxShare.imgUrl = 'http://'+credentials.hostname+'/images/share.jpg';
-        Case.find().sort({'_id':-1}).limit(8).exec(function (err,result) {
+        Case.find().sort({'_id':-1}).limit(4).exec(function (err,result) {
             //if (err) return handleError(err);
             if (err) next(err);
             var works = result.map(function (item) {
