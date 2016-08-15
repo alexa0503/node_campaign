@@ -40,10 +40,13 @@
             <a href="/cms"><i class="icon-home icon-white"></i><span>Dashboard</span></a>
         </li>
         <li class='{{#if active.infoParent}}active{{/if}}'>
-            <a href="#"><i class="icon-list icon-white"></i><span>信息查看</span><span class="label">1</span></a>
+            <a href="#"><i class="icon-list icon-white"></i><span>游戏记录</span><span class="label">1</span></a>
             <ul class="subnav">
-                <li class='{{#if active.wxUsers}}active{{/if}}'>
-                    <a href="/cms/games">游戏记录</a>
+                <li class='{{#if active.allPlayer }}active{{/if}}'>
+                    <a href="/cms/games">所有</a>
+                </li>
+                <li class='{{#unless active.allPlayer }}active{{/unless}}'>
+                    <a href="/cms/games?player=y">完成</a>
                 </li>
             </ul>
         </li>

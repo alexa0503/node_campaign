@@ -62,6 +62,7 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(require('connect-flash')());
+require('session-mongoose').Promise = global.Promise;
 var MongoSessionStore = require('session-mongoose')(require('connect')),
     sessionStore = new MongoSessionStore({ url: credentials.mongo[app.get('env')].connectionString }),
     bodyParser = require('body-parser');
