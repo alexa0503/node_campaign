@@ -12,33 +12,12 @@
     {{>nav}}
     <!-- /NAVIGATION -->
 
-    <!-- HERO -->
-    <section id="hero" class="module-hero module-parallax module-full-height bg-film" >
-
-        <!-- HERO TEXT -->
-        <div class="hero-caption">
-            <div class="hero-text">
-                <h5 class="mh-line-size-4 font-alt m-b-50">Simple &amp; Powerful</h5>
-                <h1 class="mh-line-size-1 font-alt m-b-60">帮你开启财富之门</h1>
-                <h5 class="mh-line-size-5 font-alt m-b-50">Every mountain top is within reach if you just keep climbing.</h5>
-            </div>
-        </div>
-        <!-- /HERO TEXT -->
-
-    </section>
-    <!-- /HERO -->
 
 
     <!-- LATEST PRODUCTS -->
     <section id="shop" class="module-small">
         <div class="container">
-            <!-- MODULE TITLE -->
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <h2 class="module-title font-alt">作品展示</h2>
-                </div>
-            </div>
-            <!-- /MODULE TITLE -->
+
 
             <div class="row multi-columns-row">
                 {{#each works}}
@@ -55,11 +34,15 @@
                 </div>
                 {{/each}}
                 <!-- /SHOP ITEM -->
+
             </div>
 
             <div class="row m-t-10">
                 <div class="col-sm-12 text-center">
-                    <a href="/works" class="btn btn-b btn-round">查看所有作品</a>
+                    <nav>
+                        {{{paginateHelper pagination paginationClass='pagination font-alt' leftText='<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>' rightText='<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span>'}}}
+                    </nav>
+
                 </div>
             </div>
 
@@ -67,9 +50,7 @@
 
     </section>
     <!-- /LATEST PRODUCTS -->
-
     {{>footer}}
-
 </div>
 <!-- /WRAPPER -->
 

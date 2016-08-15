@@ -61,11 +61,10 @@ hbs.handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-
 app.use(require('connect-flash')());
-var MongoSessionStore = require('session-mongoose')(require('connect'));
-var sessionStore = new MongoSessionStore({ url: credentials.mongo[app.get('env')].connectionString });
-var bodyParser = require('body-parser');
+var MongoSessionStore = require('session-mongoose')(require('connect')),
+    sessionStore = new MongoSessionStore({ url: credentials.mongo[app.get('env')].connectionString }),
+    bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '1280mb'}));
 app.use(bodyParser.urlencoded({limit: '1280mb', extended: false}));
 //app.use(bodyParser.json());
@@ -96,14 +95,11 @@ switch(app.get('env')){
         throw new Error('Unknown execution environment: ' + app.get('env'));
 }
 
-require('./routes/index.js')(app);
 var auth = require('./lib/auth.js')(app);
 auth.init();
 auth.registerRoutes();
 require('./routes/cms.js')(app);
-
-
-
+require('./routes/index.js')(app);
 
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
@@ -119,7 +115,6 @@ app.use(function(err, req, res, next){
 });
 
 var server;
-
 function startServer() {
     server = http.createServer(app).listen(app.get('port'), function(){
         console.log( 'Express started in ' + app.get('env') +

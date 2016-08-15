@@ -46,25 +46,23 @@
                             <table class="table table-nomargin table-bordered table-pagination">
                                 <thead>
                                 <tr>
-                                    <th>标题</th>
-                                    <th>缩略图</th>
-                                    <th>描述</th>
-                                    <th>网站地址</th>
+                                    <th>ID</th>
+                                    <th>创建者</th>
+                                    <th>创建者IP</th>
+                                    <th>参与者</th>
+                                    <th>参与者IP</th>
                                     <th>创建日期</th>
-                                    <th>创建IP</th>
-                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{#each works}}
+                                {{#each games}}
                                     <tr>
-                                        <td><a href="/cms/work/edit/{{_id}}">{{title}}</a></td>
-                                        <td><img src="/uploads/{{imgPath}}" style="max-width: 200px;max-height: 200px;" /></td>
-                                        <td>{{desc}}</td>
-                                        <td><a href="{{link}}">{{link}}</a></td>
-                                        <td>{{createdTime}}</td>
-                                        <td>{{createdIp}}</td>
-                                        <td><a href="/cms/work/{{_id}}" class="delete">删除</a></td>
+                                        <td>{{id}}</td>
+                                        <td>{{creatorId}}</td>
+                                        <td>{{ipAddress}}</td>
+                                        <td>{{playerId}}</td>
+                                        <td>{{ipAddress}}</td>
+                                        <td>{{createdAt}}</td>
                                     </tr>
                                 {{/each}}
                                 </tbody>
